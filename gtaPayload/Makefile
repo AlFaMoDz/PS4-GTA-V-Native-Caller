@@ -6,7 +6,7 @@ IDIRS	:= -I$(LIBPS4)/include -Iinclude
 LDIRS	:= -L$(LIBPS4)
 MAPFILE := $(shell basename $(CURDIR)).map
 CFLAGS	 :=	$(IDIRS) $(LDIRS) -O3 -s -w -std=gnu++11 -fno-builtin -nostartfiles -nostdlib -masm=intel -march=btver2 -mtune=btver2 -m64 -mabi=sysv -mcmodel=large -fpermissive -DTEXT_ADDRESS=$(TEXT) -DDATA_ADDRESS=$(DATA)
-LFLAGS	:= $(LDIRS) -Xlinker -T linker.x -Xlinker -Map=$(MAPFILE) -Wl,--build-id=none -Wl,--gc-sections
+LFLAGS	:= $(LDIRS) -Xlinker -T linker.x -Xlinker -Map=$(MAPFILE) -Wl,--build-id=none
 CFILES	 :=	$(wildcard $(SDIR)/*.cpp)
 SFILES	 :=	$(wildcard $(SDIR)/*.s)
 OBJS	:=	$(patsubst $(SDIR)/%.cpp, $(ODIR)/%.o, $(CFILES)) $(patsubst $(SDIR)/%.s, $(ODIR)/%.o, $(SFILES))
