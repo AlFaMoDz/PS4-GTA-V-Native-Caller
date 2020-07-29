@@ -74,9 +74,9 @@ struct ptrace_io_desc {
 	size_t piod_len;	/* request length */
 };
 
-extern int findProcess(char* procName);
+int findProcess(char* procName);
 
-extern void procAttach(int pid);
-extern void procDetach(int pid);
-extern void procReadBytes(int pid, void* offset, void* buffer, size_t len);
-extern void procWriteBytes(int pid, void* offset, void *buffer, size_t len);
+void procAttach(int pid);
+void procDetach(int pid);
+void procReadBytes(int pid, void* offset, void* buffer, size_t len);
+void procWriteBytes(int pid, void* offset, void *buffer, size_t len);

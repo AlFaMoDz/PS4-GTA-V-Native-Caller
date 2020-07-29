@@ -3,12 +3,11 @@
 #include "type.h"
 #include "ps4.h"
 
-#define	KERN_XFAST_SYSCALL 	0x000001C0
-#define KERN_PROCESS_ASLR 	0x003CEC8A
-#define KERN_PRISON_0 		0x0113E518
-#define KERN_ROOTVNODE 		0x02300320
-//#define KERN_PTRACE_CHECK 	0x0010F82F
-#define KERN_PTRACE_CHECK 	0x0010F879 // 2much4u fix, but in the kernel it seems to be patched already lol
+#define	KERN_XFAST_SYSCALL 0x000001C0
+#define KERN_PROCESS_ASLR 0x3CEC8A
+#define KERN_PRISON_0 0x0113E518
+#define KERN_ROOTVNODE 0x02300320
+#define KERN_PTRACE_CHECK 0x0010F879
 
 #define X86_CR0_WP (1 << 16)
 
@@ -60,4 +59,4 @@ struct thread {
 	struct proc *td_proc;
 };
 
-extern int kernelPayload(struct thread *td, void* uap);
+int kernelPayload(struct thread *td, void* uap);

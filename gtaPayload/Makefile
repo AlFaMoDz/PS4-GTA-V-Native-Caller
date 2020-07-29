@@ -1,15 +1,16 @@
-CC	:= gcc
-OBJCOPY	:= objcopy
-ODIR	:= build
-SDIR	:= source
-IDIRS	:= -I$(LIBPS4)/include -Iinclude
-LDIRS	:= -L$(LIBPS4)
-MAPFILE := $(shell basename $(CURDIR)).map
-CFLAGS	 :=	$(IDIRS) $(LDIRS) -O3 -s -w -std=gnu++11 -fno-builtin -nostartfiles -nostdlib -masm=intel -march=btver2 -mtune=btver2 -m64 -mabi=sysv -mcmodel=large -fpermissive -DTEXT_ADDRESS=$(TEXT) -DDATA_ADDRESS=$(DATA)
-LFLAGS	:= $(LDIRS) -Xlinker -T linker.x -Xlinker -Map=$(MAPFILE) -Wl,--build-id=none
+CC		 := gcc
+AS		 := gcc
+OBJCOPY	 :=	objcopy
+ODIR	 :=	build
+SDIR	 :=	source
+IDIRS	 :=	-Iinclude
+LDIRS	 :=	-Llib
+CFLAGS	 :=	$(IDIRS) $(LDIRS) -O3 -s -w -std=gnu++11 -ffunction-sections -fdata-sections -fno-stack-protector -fno-builtin -nostartfiles -nostdlib -masm=intel -march=btver2 -mtune=btver2 -m64 -mabi=sysv -mcmodel=small -fpie -fpermissive
+LFLAGS	 :=	-Xlinker -T linker.x -Wl,--build-id=none
+SFLAGS	:=	-nostartfiles -nostdlib -masm=intel -march=btver2 -mtune=btver2 -m64 -mabi=sysv -mcmodel=large
 CFILES	 :=	$(wildcard $(SDIR)/*.cpp)
 SFILES	 :=	$(wildcard $(SDIR)/*.s)
-OBJS	:=	$(patsubst $(SDIR)/%.cpp, $(ODIR)/%.o, $(CFILES)) $(patsubst $(SDIR)/%.s, $(ODIR)/%.o, $(SFILES))
+OBJS	 :=	$(patsubst $(SDIR)/%.cpp, $(ODIR)/%.o, $(CFILES)) $(patsubst $(SDIR)/%.s, $(ODIR)/%.o, $(SFILES))
 
 TARGET = $(shell basename $(CURDIR)).bin
 
